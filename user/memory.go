@@ -4,22 +4,23 @@ import (
 	"errors"
 	"net/url"
 	"strings"
-	"log"
+
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
+	"github.com/theiny/users-service/user/models"
 )
 
 type memRepository struct {
-	users map[string]User
+	users map[string]models.User
 }
 
 var errNotFound = errors.New("User not found")
 
 func InMemory() *memRepository {
-	return &memRepository{users: make(map[string]User)}
+	return &memRepository{users: make(map[string]models.User)}
 }
 
-func (m *memRepository) AddUser(u User) error {
+func (m *memRepository) AddUser(u models.User) error {
 	var err error
 	u.Password, err = hashPassword(u.Password)
 	u.ID = uuid.New().String()
@@ -27,11 +28,11 @@ func (m *memRepository) AddUser(u User) error {
 	return err
 }
 
-func (m *memRepository) GetUsers(q url.Values) ([]User, error) {
+func (m *memRepository) GetUsers(q url.Values) ([]models.User, error) {
 	return m.filter(q), nil
 }
 
-func (m *memRepository) EditUser(id string, u User) error {
+func (m *memRepository) EditUser(id string, u models.User) error {
 	if _, ok := m.users[id]; !ok {
 		return errNotFound
 	}
@@ -64,8 +65,8 @@ func found(slice []string, val string) bool {
 	return exists
 }
 
-func (m *memRepository) filter(q url.Values) []User {
-	var users []User
+func (m *memRepository) filter(q url.Values) []models.User {
+	var users []models.User
 
 	for _, u := range m.users {
 		if len(q) != 0 {

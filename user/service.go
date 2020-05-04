@@ -1,10 +1,13 @@
 package user
 
-import "net/url"
+import (
+	"net/url"
+	"github.com/theiny/users-service/user/models"
+)
 
 type Service interface {
-	AddUser(u User) error
-	GetUsers(q url.Values) ([]User, error)
-	EditUser(u User) error
+	AddUser(u models.User) error
+	GetUsers(q url.Values) ([]models.User, error)
+	EditUser(u models.User) error
 	DeleteUser(id string) error
 }
