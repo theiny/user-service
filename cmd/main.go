@@ -1,22 +1,24 @@
 package main
 
 import (
-	"github.com/theiny/users-service/user"
 	"github.com/theiny/users-service/user/adding"
 	"github.com/theiny/users-service/user/deleting"
 	"github.com/theiny/users-service/user/editing"
+	"github.com/theiny/users-service/user/http/rest"
 	"github.com/theiny/users-service/user/listing"
+	"github.com/theiny/users-service/user/logger"
+	"github.com/theiny/users-service/user/repository"
 )
 
 func main() {
-	s := user.NewServer()
+	s := rest.NewServer()
 
-	storageType := user.InMemory()
+	storageType := repository.InMemory()
 
-	s.AddingService = adding.NewService(storageType, user.NewLogger("add-user"))
-	s.ListingService = listing.NewService(storageType, user.NewLogger("list-users"))
-	s.EditingService = editing.NewService(storageType, user.NewLogger("edit-user"))
-	s.DeletingService = deleting.NewService(storageType, user.NewLogger("delete-user"))
+	s.AddingService = adding.NewService(storageType, logger.New("user-add"))
+	s.ListingService = listing.NewService(storageType, logger.New("user-list"))
+	s.EditingService = editing.NewService(storageType, logger.New("user-edit"))
+	s.DeletingService = deleting.NewService(storageType, logger.New("user-delete"))
 
 	s.NewRouter()
 

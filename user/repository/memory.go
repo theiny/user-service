@@ -1,4 +1,4 @@
-package user
+package repository
 
 import (
 	"errors"
@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"golang.org/x/crypto/bcrypt"
 	"github.com/theiny/users-service/user/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type memRepository struct {

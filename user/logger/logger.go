@@ -1,10 +1,10 @@
-package user
+package logger
 
 import "go.uber.org/zap"
 
 const service = "users"
 
-func NewLogger(label string) *zap.SugaredLogger {
+func New(label string) *zap.SugaredLogger {
 	cfg := zap.NewProductionConfig()
 	cfg.DisableStacktrace = true
 
