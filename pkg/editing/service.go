@@ -11,13 +11,13 @@ type Service struct {
 }
 
 type Repository interface {
-	EditUser(id string, u models.User) error
+	EditUser(id string, u *models.User) error
 }
 
 func NewService(r Repository, l *zap.SugaredLogger) *Service {
 	return &Service{r: r, Log: l}
 }
 
-func (s *Service) EditUser(id string, u models.User) error {
+func (s *Service) EditUser(id string, u *models.User) error {
 	return s.r.EditUser(id, u)
 }

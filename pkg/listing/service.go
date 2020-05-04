@@ -14,13 +14,13 @@ type Service struct {
 }
 
 type Repository interface {
-	GetUsers(q url.Values) ([]models.User, error)
+	GetUsers(q url.Values) ([]*models.User, error)
 }
 
 func NewService(r Repository, l *zap.SugaredLogger) *Service {
 	return &Service{r: r, Log: l}
 }
 
-func (s *Service) GetUsers(q url.Values) ([]models.User, error) {
+func (s *Service) GetUsers(q url.Values) ([]*models.User, error) {
 	return s.r.GetUsers(q)
 }

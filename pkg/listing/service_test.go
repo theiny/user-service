@@ -27,8 +27,8 @@ func TestGetUsers(t *testing.T) {
 
 	a := adding.NewService(m, logger)
 
-	users := []models.User{
-		models.User{
+	users := []*models.User{
+		*models.User{
 			FirstName: "John",
 			LastName:  "Smith",
 			Nickname:  "Pocahontas",
@@ -36,7 +36,7 @@ func TestGetUsers(t *testing.T) {
 			Email:     "john.smith@somedomain.com",
 			Country:   "UK",
 		},
-		models.User{
+		*models.User{
 			FirstName: "Jane",
 			LastName:  "Doe",
 			Nickname:  "JD",
@@ -44,7 +44,7 @@ func TestGetUsers(t *testing.T) {
 			Email:     "jane.doe@somedomain.com",
 			Country:   "US",
 		},
-		models.User{
+		*models.User{
 			FirstName: "John",
 			LastName:  "Doe",
 			Nickname:  "JD",
@@ -92,7 +92,7 @@ func TestGetUsers(t *testing.T) {
 
 	l := NewService(m, logger)
 
-	var filtered []models.User
+	var filtered []*models.User
 	for _, test := range tests {
 		q := url.Values{}
 		q.Add(test.key, test.value)

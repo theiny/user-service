@@ -25,7 +25,7 @@ func TestAddUser(t *testing.T) {
 
 	s := NewService(m, logger)
 
-	user := models.User{
+	user := *models.User{
 		FirstName: "John",
 		LastName:  "Smith",
 		Nickname:  "Pocahontas",

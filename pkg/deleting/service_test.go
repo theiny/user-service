@@ -28,7 +28,7 @@ func TestDeleteUser(t *testing.T) {
 
 	a := adding.NewService(m, logger)
 
-	user := models.User{
+	user := *models.User{
 		FirstName: "John",
 		LastName:  "Smith",
 		Nickname:  "Pocahontas",

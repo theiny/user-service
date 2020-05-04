@@ -11,7 +11,7 @@ import (
 )
 
 type memory struct {
-	users map[string]models.User
+	users map[string]*models.User
 }
 
 const (
@@ -25,10 +25,10 @@ const (
 var errNotFound = errors.New("User not found")
 
 func InMemory() *memory {
-	return &memory{users: make(map[string]models.User)}
+	return &memory{users: make(map[string]*models.User)}
 }
 
-func (m *memory) AddUser(u models.User) error {
+func (m *memory) AddUser(u *models.User) error {
 	var err error
 	u.Password, err = hashPassword(u.Password)
 	u.ID = uuid.New().String()
@@ -36,11 +36,11 @@ func (m *memory) AddUser(u models.User) error {
 	return err
 }
 
-func (m *memory) GetUsers(q url.Values) ([]models.User, error) {
+func (m *memory) GetUsers(q url.Values) ([]*models.User, error) {
 	return m.filter(q), nil
 }
 
-func (m *memory) EditUser(id string, u models.User) error {
+func (m *memory) EditUser(id string, u *models.User) error {
 	if _, ok := m.users[id]; !ok {
 		return errNotFound
 	}
@@ -73,8 +73,8 @@ func found(slice []string, val string) bool {
 	return exists
 }
 
-func (m *memory) filter(q url.Values) []models.User {
-	var users []models.User
+func (m *memory) filter(q url.Values) []*models.User {
+	var users []*models.User
 
 	for _, u := range m.users {
 		if len(q) != 0 {

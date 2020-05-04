@@ -59,7 +59,7 @@ func handleHealthcheck(c *gin.Context) {
 
 func handleUserAdd(s *adding.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var u models.User
+		var u *models.User
 		err := json.NewDecoder(c.Request.Body).Decode(&u)
 		if err != nil {
 			s.Log.Error(err)
@@ -110,7 +110,7 @@ func handleUserEdit(s *editing.Service) gin.HandlerFunc {
 			return
 		}
 
-		var u models.User
+		var u *models.User
 		err := json.NewDecoder(c.Request.Body).Decode(&u)
 		if err != nil {
 			s.Log.Error(err)
