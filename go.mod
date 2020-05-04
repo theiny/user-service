@@ -6,4 +6,5 @@ require (
 	github.com/gin-gonic/gin v1.6.2
 	github.com/google/uuid v1.1.1
 	go.uber.org/zap v1.15.0
+	golang.org/x/crypto v0.0.0-20190510104115-cbcb75029529
 )
