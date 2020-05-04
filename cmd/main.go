@@ -1,13 +1,13 @@
 package main
 
 import (
-	"github.com/theiny/users-service/user/adding"
-	"github.com/theiny/users-service/user/deleting"
-	"github.com/theiny/users-service/user/editing"
-	"github.com/theiny/users-service/user/http/rest"
-	"github.com/theiny/users-service/user/listing"
-	"github.com/theiny/users-service/user/logger"
-	"github.com/theiny/users-service/user/repository"
+	"github.com/theiny/users-service/pkg/adding"
+	"github.com/theiny/users-service/pkg/deleting"
+	"github.com/theiny/users-service/pkg/editing"
+	"github.com/theiny/users-service/pkg/http/rest"
+	"github.com/theiny/users-service/pkg/listing"
+	"github.com/theiny/users-service/pkg/logger"
+	"github.com/theiny/users-service/pkg/repository"
 )
 
 func main() {

@@ -6,11 +6,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/theiny/users-service/user/adding"
-	"github.com/theiny/users-service/user/deleting"
-	"github.com/theiny/users-service/user/editing"
-	"github.com/theiny/users-service/user/listing"
-	"github.com/theiny/users-service/user/models"
+	"github.com/theiny/users-service/pkg/adding"
+	"github.com/theiny/users-service/pkg/deleting"
+	"github.com/theiny/users-service/pkg/editing"
+	"github.com/theiny/users-service/pkg/listing"
+	"github.com/theiny/users-service/pkg/models"
 )
 
 var errMissingID = errors.New("Missing id param")
@@ -50,10 +50,10 @@ func (s *server) LoadHandlers() {
 		users.PUT("/edit/:id", handleUserEdit(s.EditingService))
 		users.DELETE("/delete/:id", handleUserDelete(s.DeletingService))
 	}
-	s.Router.GET("/healthcheck", s.handleHealthcheck)
+	s.Router.GET("/healthcheck", handleHealthcheck)
 }
 
-func (s *server) handleHealthcheck(c *gin.Context) {
+func handleHealthcheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "I'm up!"})
 }
 

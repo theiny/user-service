@@ -5,8 +5,8 @@ import (
 )
 
 type Service struct {
-	Storage Repository
-	Log     *zap.SugaredLogger
+	r   Repository
+	Log *zap.SugaredLogger
 }
 
 type Repository interface {
@@ -14,9 +14,9 @@ type Repository interface {
 }
 
 func NewService(r Repository, l *zap.SugaredLogger) *Service {
-	return &Service{Storage: r, Log: l}
+	return &Service{r: r, Log: l}
 }
 
 func (s *Service) DeleteUser(id string) error {
-	return s.Storage.DeleteUser(id)
+	return s.r.DeleteUser(id)
 }

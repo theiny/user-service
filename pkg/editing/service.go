@@ -1,13 +1,13 @@
 package editing
 
 import (
-	"github.com/theiny/users-service/user/models"
+	"github.com/theiny/users-service/pkg/models"
 	"go.uber.org/zap"
 )
 
 type Service struct {
-	Storage Repository
-	Log     *zap.SugaredLogger
+	r   Repository
+	Log *zap.SugaredLogger
 }
 
 type Repository interface {
@@ -15,9 +15,9 @@ type Repository interface {
 }
 
 func NewService(r Repository, l *zap.SugaredLogger) *Service {
-	return &Service{Storage: r, Log: l}
+	return &Service{r: r, Log: l}
 }
 
 func (s *Service) EditUser(id string, u models.User) error {
-	return s.Storage.EditUser(id, u)
+	return s.r.EditUser(id, u)
 }

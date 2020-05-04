@@ -1,13 +1,13 @@
 package adding
 
 import (
-	"github.com/theiny/users-service/user/models"
+	"github.com/theiny/users-service/pkg/models"
 	"go.uber.org/zap"
 )
 
 type Service struct {
-	Storage Repository
-	Log     *zap.SugaredLogger
+	r   Repository
+	Log *zap.SugaredLogger
 }
 
 type Repository interface {
@@ -15,9 +15,9 @@ type Repository interface {
 }
 
 func NewService(r Repository, l *zap.SugaredLogger) *Service {
-	return &Service{Storage: r, Log: l}
+	return &Service{r: r, Log: l}
 }
 
 func (s *Service) AddUser(u models.User) error {
-	return s.Storage.AddUser(u)
+	return s.r.AddUser(u)
 }

@@ -6,21 +6,29 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"github.com/theiny/users-service/user/models"
+	"github.com/theiny/users-service/pkg/models"
 	"golang.org/x/crypto/bcrypt"
 )
 
-type memRepository struct {
+type memory struct {
 	users map[string]models.User
 }
 
+const (
+	firstName = "first_name"
+	lastName  = "last_name"
+	nickname  = "nickname"
+	email     = "email"
+	country   = "country"
+)
+
 var errNotFound = errors.New("User not found")
 
-func InMemory() *memRepository {
-	return &memRepository{users: make(map[string]models.User)}
+func InMemory() *memory {
+	return &memory{users: make(map[string]models.User)}
 }
 
-func (m *memRepository) AddUser(u models.User) error {
+func (m *memory) AddUser(u models.User) error {
 	var err error
 	u.Password, err = hashPassword(u.Password)
 	u.ID = uuid.New().String()
@@ -28,11 +36,11 @@ func (m *memRepository) AddUser(u models.User) error {
 	return err
 }
 
-func (m *memRepository) GetUsers(q url.Values) ([]models.User, error) {
+func (m *memory) GetUsers(q url.Values) ([]models.User, error) {
 	return m.filter(q), nil
 }
 
-func (m *memRepository) EditUser(id string, u models.User) error {
+func (m *memory) EditUser(id string, u models.User) error {
 	if _, ok := m.users[id]; !ok {
 		return errNotFound
 	}
@@ -40,7 +48,7 @@ func (m *memRepository) EditUser(id string, u models.User) error {
 	return nil
 }
 
-func (m *memRepository) DeleteUser(id string) error {
+func (m *memory) DeleteUser(id string) error {
 	if _, ok := m.users[id]; !ok {
 		return errNotFound
 	}
@@ -65,30 +73,30 @@ func found(slice []string, val string) bool {
 	return exists
 }
 
-func (m *memRepository) filter(q url.Values) []models.User {
+func (m *memory) filter(q url.Values) []models.User {
 	var users []models.User
 
 	for _, u := range m.users {
 		if len(q) != 0 {
-			for k, v := range q {
-				switch k {
-				case "first_name":
+			for filterBy, v := range q {
+				switch filterBy {
+				case firstName:
 					if found(v, u.FirstName) {
 						users = append(users, u)
 					}
-				case "last_name":
+				case lastName:
 					if found(v, u.LastName) {
 						users = append(users, u)
 					}
-				case "nickname":
+				case nickname:
 					if found(v, u.Nickname) {
 						users = append(users, u)
 					}
-				case "email":
+				case email:
 					if found(v, u.Email) {
 						users = append(users, u)
 					}
-				case "country":
+				case country:
 					if found(v, u.Country) {
 						users = append(users, u)
 					}
