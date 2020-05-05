@@ -1,7 +1,6 @@
 # User Microservice
 
-An example of a user microservice using DDD and based on a hexagonal architecture. 
-
+An example of a user microservice using DDD techniques and based on a hexagonal style architecture. 
 
 ## Run it
 `go run $GOPATH/src/github.com/theiny/user-service/cmd/main.go`

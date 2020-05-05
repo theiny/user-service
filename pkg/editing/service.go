@@ -5,6 +5,8 @@ import (
 	"go.uber.org/zap"
 )
 
+// Ideally we might want an iteration to interface the service layer as well as the repository to make it a truly hex architecture.
+
 // Service encapsulates the storage type and logger instance.
 type Service struct {
 	r   Repository
