@@ -11,7 +11,7 @@ import (
 func TestAddUser(t *testing.T) {
 	m := InMemory()
 
-	user := *models.User{
+	user := &models.User{
 		FirstName: "John",
 		LastName:  "Doe",
 		Nickname:  "JD",
@@ -27,7 +27,7 @@ func TestAddUser(t *testing.T) {
 func TestGetUsers(t *testing.T) {
 	m := InMemory()
 
-	user := *models.User{
+	user := &models.User{
 		FirstName: "John",
 		LastName:  "Doe",
 		Nickname:  "JD",
@@ -49,7 +49,7 @@ func TestGetUsers(t *testing.T) {
 func TestEditUser(t *testing.T) {
 	m := InMemory()
 
-	user := *models.User{
+	user := &models.User{
 		FirstName: "John",
 		LastName:  "Doe",
 		Nickname:  "JD",
@@ -75,7 +75,7 @@ func TestEditUser(t *testing.T) {
 func TestDeleteUser(t *testing.T) {
 	m := InMemory()
 
-	user := *models.User{
+	user := &models.User{
 		FirstName: "John",
 		LastName:  "Doe",
 		Nickname:  "JD",
