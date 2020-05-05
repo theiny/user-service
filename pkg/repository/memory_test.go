@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/theiny/users-service/pkg/models"
+	"github.com/theiny/user-service/pkg/models"
 )
 
 func TestAddUser(t *testing.T) {

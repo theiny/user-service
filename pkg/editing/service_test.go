@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/theiny/users-service/pkg/adding"
-	"github.com/theiny/users-service/pkg/listing"
-	"github.com/theiny/users-service/pkg/logger"
-	"github.com/theiny/users-service/pkg/models"
-	"github.com/theiny/users-service/pkg/repository"
+	"github.com/theiny/user-service/pkg/adding"
+	"github.com/theiny/user-service/pkg/listing"
+	"github.com/theiny/user-service/pkg/logger"
+	"github.com/theiny/user-service/pkg/models"
+	"github.com/theiny/user-service/pkg/repository"
 )
 
 func TestNewService(t *testing.T) {

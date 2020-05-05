@@ -1,4 +1,4 @@
-module github.com/theiny/users-service
+module github.com/theiny/user-service
 
 go 1.13
 

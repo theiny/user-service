@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"github.com/theiny/users-service/pkg/models"
+	"github.com/theiny/user-service/pkg/models"
 	"golang.org/x/crypto/bcrypt"
 )
 

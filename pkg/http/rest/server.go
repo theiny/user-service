@@ -2,10 +2,10 @@ package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/theiny/users-service/pkg/adding"
-	"github.com/theiny/users-service/pkg/deleting"
-	"github.com/theiny/users-service/pkg/editing"
-	"github.com/theiny/users-service/pkg/listing"
+	"github.com/theiny/user-service/pkg/adding"
+	"github.com/theiny/user-service/pkg/deleting"
+	"github.com/theiny/user-service/pkg/editing"
+	"github.com/theiny/user-service/pkg/listing"
 )
 
 type server struct {

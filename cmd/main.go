@@ -1,14 +1,18 @@
 package main
 
 import (
-	"github.com/theiny/users-service/pkg/adding"
-	"github.com/theiny/users-service/pkg/deleting"
-	"github.com/theiny/users-service/pkg/editing"
-	"github.com/theiny/users-service/pkg/http/rest"
-	"github.com/theiny/users-service/pkg/listing"
-	"github.com/theiny/users-service/pkg/logger"
-	"github.com/theiny/users-service/pkg/repository"
+	"log"
+
+	"github.com/theiny/user-service/pkg/adding"
+	"github.com/theiny/user-service/pkg/deleting"
+	"github.com/theiny/user-service/pkg/editing"
+	"github.com/theiny/user-service/pkg/http/rest"
+	"github.com/theiny/user-service/pkg/listing"
+	"github.com/theiny/user-service/pkg/logger"
+	"github.com/theiny/user-service/pkg/repository"
 )
+
+const defaultPort = ":8080"
 
 func main() {
 	s := rest.NewServer()
@@ -22,5 +26,7 @@ func main() {
 
 	s.NewRouter()
 
-	s.Router.Run(":8080")
+	log.Printf("Starting app on http://localhost%s\n", defaultPort)
+
+	s.Router.Run(defaultPort)
 }

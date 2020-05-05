@@ -5,7 +5,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/theiny/users-service/pkg/models"
+	"github.com/theiny/user-service/pkg/models"
 )
 
 type Service struct {

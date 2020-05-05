@@ -1,7 +1,7 @@
 package editing
 
 import (
-	"github.com/theiny/users-service/pkg/models"
+	"github.com/theiny/user-service/pkg/models"
 	"go.uber.org/zap"
 )
 
