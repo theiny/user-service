@@ -8,6 +8,7 @@ import (
 	"github.com/theiny/user-service/pkg/listing"
 )
 
+// server encapsulates all the dependencies required for the service to run on a REST api.
 type server struct {
 	Router          *gin.Engine
 	AddingService   *adding.Service
@@ -16,6 +17,7 @@ type server struct {
 	DeletingService *deleting.Service
 }
 
+// NewServer returns an empty server struct. Dependencies should be injected from elsewhere like main.
 func NewServer() *server {
 	return &server{}
 }

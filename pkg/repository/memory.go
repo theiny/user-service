@@ -10,6 +10,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// store the data in memory as a map. 
 type memory struct {
 	users map[string]*models.User
 }
@@ -24,10 +25,12 @@ const (
 
 var errNotFound = errors.New("User not found")
 
+// InMemory initiates a new map in memory to store user data. 
 func InMemory() *memory {
 	return &memory{users: make(map[string]*models.User)}
 }
 
+// AddUser adds a new user to memory. 
 func (m *memory) AddUser(u *models.User) error {
 	var err error
 	u.Password, err = hashPassword(u.Password)
@@ -36,10 +39,12 @@ func (m *memory) AddUser(u *models.User) error {
 	return err
 }
 
+// GetUsers retrieves a list of users from memory, matching the criteria given by query params q. 
 func (m *memory) GetUsers(q url.Values) ([]*models.User, error) {
 	return m.filter(q), nil
 }
 
+// EditUser updates an existing user of given id, with new details passed as u. 
 func (m *memory) EditUser(id string, u *models.User) error {
 	if _, ok := m.users[id]; !ok {
 		return errNotFound
@@ -48,6 +53,7 @@ func (m *memory) EditUser(id string, u *models.User) error {
 	return nil
 }
 
+// DeleteUser removes the user with the given id from memory. 
 func (m *memory) DeleteUser(id string) error {
 	if _, ok := m.users[id]; !ok {
 		return errNotFound
@@ -56,12 +62,13 @@ func (m *memory) DeleteUser(id string) error {
 	return nil
 }
 
+// passwords should be stored as hashes.
 func hashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	return string(bytes), err
 }
 
-// return it's key, otherwise it will return -1 and a bool of false.
+// helper func to check if val is in slice. 
 func found(slice []string, val string) bool {
 	var exists bool
 	for _, item := range slice {
@@ -73,6 +80,7 @@ func found(slice []string, val string) bool {
 	return exists
 }
 
+// if query params are passed, only retrieve the users that match that given criteria e.g. ?first_name=Brandon returns all users with the first name 'Brandon'. 
 func (m *memory) filter(q url.Values) []*models.User {
 	var users []*models.User
 

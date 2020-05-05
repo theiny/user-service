@@ -15,17 +15,19 @@ import (
 
 var errMissingID = errors.New("Missing id param")
 
-// ErrorResponse is Error response template
+// ErrorResponse is an error response template
 type ErrorResponse struct {
 	Message string `json:"message"`
 	Error   string `json:"reason"`
 }
 
+//JSONResponse is a success response template.
 type JSONResponse struct {
 	StatusCode int    `json:"status_code"`
 	Message    string `json:"message"`
 }
 
+// Error standardises the JSON response for error messages.
 func Error(c *gin.Context, code int, err error, msg string) {
 	e := &ErrorResponse{
 		Error:   err.Error(),
@@ -34,6 +36,7 @@ func Error(c *gin.Context, code int, err error, msg string) {
 	c.JSON(code, e)
 }
 
+// Respond standardises the JSON response for success messages.
 func Respond(c *gin.Context, msg string) {
 	r := &JSONResponse{
 		StatusCode: http.StatusOK,
@@ -42,6 +45,7 @@ func Respond(c *gin.Context, msg string) {
 	c.JSON(r.StatusCode, r)
 }
 
+// LoadHandlers registers all routes into Gin's serve mux.
 func (s *server) LoadHandlers() {
 	users := s.Router.Group("/api/v1/users")
 	{
@@ -53,10 +57,12 @@ func (s *server) LoadHandlers() {
 	s.Router.GET("/healthcheck", handleHealthcheck)
 }
 
+// simple healthcheck endpoint.
 func handleHealthcheck(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": "I'm up!"})
 }
 
+// handler for adding a new user.
 func handleUserAdd(s *adding.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var u *models.User
@@ -79,6 +85,7 @@ func handleUserAdd(s *adding.Service) gin.HandlerFunc {
 	}
 }
 
+// handler for listing users.
 func handleUserGet(s *listing.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		query := c.Request.URL.Query()
@@ -101,6 +108,7 @@ func handleUserGet(s *listing.Service) gin.HandlerFunc {
 	}
 }
 
+// handler for editing an existing user.
 func handleUserEdit(s *editing.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
@@ -130,6 +138,7 @@ func handleUserEdit(s *editing.Service) gin.HandlerFunc {
 	}
 }
 
+// handler for deleting a user.
 func handleUserDelete(s *deleting.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
