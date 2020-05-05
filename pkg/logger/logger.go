@@ -11,5 +11,5 @@ func New(label string) *zap.SugaredLogger {
 
 	logger, _ := cfg.Build()
 	defer logger.Sync() // flushes buffer, if any
-	return logger.Sugar().With("service", service, "action", label)
+	return logger.Sugar().With("service", service, "event", label)
 }
