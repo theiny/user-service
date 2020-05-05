@@ -15,6 +15,14 @@ cd $GOPATH/src/github.com/theiny/user-service/cmd/
 
 ## Usage
 
+### Healthcheck
+
+Simple 200 response for healthchecking the service. 
+
+- **URL**
+
+`GET` /healthcheck
+
 ### Adding a User
 
 Send JSON payload of a User object to create a new user. 
