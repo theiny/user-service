@@ -15,30 +15,30 @@ import (
 
 var errMissingID = errors.New("Missing id param")
 
-// ErrorResponse is an error response template
-type ErrorResponse struct {
+// error response template
+type errorResponse struct {
 	Message string `json:"message"`
 	Error   string `json:"reason"`
 }
 
-//JSONResponse is a success response template.
-type JSONResponse struct {
+// success response template.
+type jsonResponse struct {
 	StatusCode int    `json:"status_code"`
 	Message    string `json:"message"`
 }
 
-// Error standardises the JSON response for error messages.
-func Error(c *gin.Context, code int, err error, msg string) {
-	e := &ErrorResponse{
+// respondErr standardises the JSON response for error messages.
+func respondErr(c *gin.Context, code int, err error, msg string) {
+	e := &errorResponse{
 		Error:   err.Error(),
 		Message: msg,
 	}
 	c.JSON(code, e)
 }
 
-// Respond standardises the JSON response for success messages.
-func Respond(c *gin.Context, msg string) {
-	r := &JSONResponse{
+// respond standardises the JSON response for success messages.
+func respond(c *gin.Context, msg string) {
+	r := &jsonResponse{
 		StatusCode: http.StatusOK,
 		Message:    msg,
 	}
@@ -69,19 +69,19 @@ func handleUserAdd(s *adding.Service) gin.HandlerFunc {
 		err := json.NewDecoder(c.Request.Body).Decode(&u)
 		if err != nil {
 			s.Log.Error(err)
-			Error(c, http.StatusInternalServerError, err, "Error decoding user JSON")
+			respondErr(c, http.StatusInternalServerError, err, "Error decoding user JSON")
 			return
 		}
 
 		err = s.AddUser(u)
 		if err != nil {
 			s.Log.Error(err)
-			Error(c, http.StatusInternalServerError, err, "Error adding new user")
+			respondErr(c, http.StatusInternalServerError, err, "Error adding new user")
 			return
 		}
 
 		s.Log.Info("Added new user")
-		Respond(c, "Successfully added new user")
+		respond(c, "Successfully added new user")
 	}
 }
 
@@ -93,7 +93,7 @@ func handleUserGet(s *listing.Service) gin.HandlerFunc {
 		users, err := s.GetUsers(query)
 		if err != nil {
 			s.Log.Error(err)
-			Error(c, http.StatusInternalServerError, err, "Error getting users")
+			respondErr(c, http.StatusInternalServerError, err, "Error getting users")
 			return
 		}
 
@@ -114,7 +114,7 @@ func handleUserEdit(s *editing.Service) gin.HandlerFunc {
 		id := c.Param("id")
 		if id == "" {
 			s.Log.Error(errMissingID)
-			Error(c, http.StatusBadRequest, errMissingID, "ID unknown")
+			respondErr(c, http.StatusBadRequest, errMissingID, "ID unknown")
 			return
 		}
 
@@ -122,19 +122,19 @@ func handleUserEdit(s *editing.Service) gin.HandlerFunc {
 		err := json.NewDecoder(c.Request.Body).Decode(&u)
 		if err != nil {
 			s.Log.Error(err)
-			Error(c, http.StatusInternalServerError, err, "Error decoding user JSON")
+			respondErr(c, http.StatusInternalServerError, err, "Error decoding user JSON")
 			return
 		}
 
 		err = s.EditUser(id, u)
 		if err != nil {
 			s.Log.Error(err)
-			Error(c, http.StatusInternalServerError, err, "Error editing user")
+			respondErr(c, http.StatusInternalServerError, err, "Error editing user")
 			return
 		}
 
 		s.Log.Info("Edited user")
-		Respond(c, "Successfully Edited user")
+		respond(c, "Successfully Edited user")
 	}
 }
 
@@ -144,18 +144,18 @@ func handleUserDelete(s *deleting.Service) gin.HandlerFunc {
 		id := c.Param("id")
 		if id == "" {
 			s.Log.Error(errMissingID)
-			Error(c, http.StatusBadRequest, errMissingID, "ID unknown")
+			respondErr(c, http.StatusBadRequest, errMissingID, "ID unknown")
 			return
 		}
 
 		err := s.DeleteUser(id)
 		if err != nil {
 			s.Log.Error(err)
-			Error(c, http.StatusInternalServerError, err, "Error deleting user")
+			respondErr(c, http.StatusInternalServerError, err, "Error deleting user")
 			return
 		}
 
 		s.Log.Info("Deleted user")
-		Respond(c, "Successfully deleted user")
+		respond(c, "Successfully deleted user")
 	}
 }
