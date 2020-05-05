@@ -27,7 +27,7 @@ func main() {
 	storageType := repository.InMemory()
 
 	/* A new service encapsulates the storage, as well as it's own instance of a logger for that behaviour.
-	** We create a new logger for each one so we can add labels to them which can be used by an external actor.
+	** We create a new logger for each one so we can add labels to them which can be used by an external actor e.g. notifying a search service that a 'user-add' event has occurred.
 	 */
 	s.AddingService = adding.NewService(storageType, logger.New("user-add"))
 	s.ListingService = listing.NewService(storageType, logger.New("user-list"))

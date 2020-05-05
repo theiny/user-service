@@ -42,7 +42,7 @@ Retrieves a list of users from storage in JSON format. Apply URL params to filte
 
 - **URL**
 
- `POST`   /api/v1/users/get
+ `GET`   /api/v1/users/get
 
 -   **URL Params**
     
