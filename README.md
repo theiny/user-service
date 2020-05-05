@@ -75,7 +75,6 @@ Send JSON payload of a User object to edit an existing user. The ID of the user 
 	"first_name": "Brandon",
 	"last_name": "Stark",
 	"nickname": "Bran the Broken",
-	"password": "someRandomSuperSecurePassword",
 	"email": "kingofwesteros@winterfell.com",
 	"country": "IE"
 }
